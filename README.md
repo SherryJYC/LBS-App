@@ -14,7 +14,7 @@ Android App for Location-Based Service
 :last_quarter_moon_with_face:
 
 ## Checklist :clipboard:
-- [ ] App Framwwork
+- [x] App Framwwork
 - [ ] Functions?
 - [ ] Finish Source Code
 - [ ] Presentation
