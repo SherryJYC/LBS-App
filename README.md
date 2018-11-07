@@ -22,3 +22,7 @@ Android App for Location-Based Service
 
 ## Our link to Google Drive :notebook:
 + [Click Me](https://drive.google.com/drive/folders/1jKESlUAu47_kCLUAsmu85XIGaOQLXYrt)
+
+## References:
++ [Add navigation drawer layout on the map view](https://stackoverflow.com/questions/45604680/android-add-navigation-drawer-to-default-maps-activity)
+
