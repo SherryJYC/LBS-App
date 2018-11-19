@@ -26,3 +26,6 @@ Android App for Location-Based Service
 ## References:
 + [Add navigation drawer layout on the map view](https://stackoverflow.com/questions/45604680/android-add-navigation-drawer-to-default-maps-activity)
 
++ [Download icons for buttons](https://material.io/tools/icons/?icon=search&style=baseline)
+
+
