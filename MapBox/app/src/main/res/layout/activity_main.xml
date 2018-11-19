@@ -35,9 +35,9 @@
         android:layout_marginRight="18dp"
         android:layout_marginBottom="13dp"
         android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/search"
-        mapbox:backgroundTint="@color/colorPrimary" />
+        app:srcCompat="@drawable/ic_search"
+
+        mapbox:backgroundTint="@color/orange" />
 
 
 </RelativeLayout>

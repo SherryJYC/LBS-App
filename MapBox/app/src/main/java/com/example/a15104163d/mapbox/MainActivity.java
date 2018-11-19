@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         originPosition = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
         getRoute(originPosition, destinationPosition);
         button.setEnabled(true);
-        button.setBackgroundResource(R.color.mapboxBlue);
+        button.setBackgroundResource(R.color.orange);
     }
 
     private void getRoute(Point origin, Point destination) {
