@@ -1,4 +1,7 @@
 package com.example.a15104163d.mapbox;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -23,6 +26,8 @@ import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import android.location.Location;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import android.support.annotation.NonNull;
@@ -30,6 +35,7 @@ import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
+import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
@@ -53,6 +59,7 @@ import android.view.View;
 import android.widget.Button;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textField;
 
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
@@ -79,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private NavigationMapRoute navigationMapRoute;
     private Button button;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MainActivity.this.mapboxMap = mapboxMap;
         initSearchFab();
         addUserLocations();
+
+
 
 // Add the symbol layer icon to map for future use
         Bitmap icon = BitmapFactory.decodeResource(
@@ -289,6 +299,56 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition), 4000);
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map_langauge, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        List<Layer> mapText = mapboxMap.getLayers();
+        int i = 0;
+        if (mapText != null) {
+            switch (item.getItemId()) {
+                case R.id.french:
+                    for (i = 0; i<mapText.size();i++){
+                        mapText.get(i).setProperties(textField("{name_fr}"));
+                    }
+                    return true;
+                case R.id.japanese:
+                    for (i = 0; i<mapText.size();i++) {
+                        mapText.get(i).setProperties(textField("{name_ja}"));
+                    }
+                    return true;
+                case R.id.german:
+                    for (i = 0; i<mapText.size();i++) {
+                        mapText.get(i).setProperties(textField("{name_de}"));
+                    }
+                    return true;
+                case R.id.Chinese:
+                    for (i = 0; i<mapText.size();i++) {
+                        mapText.get(i).setProperties(textField("{name_zh}"));
+                    }
+                    return true;
+                case R.id.english:
+                    for (i = 0; i<mapText.size();i++) {
+                        mapText.get(i).setProperties(textField("{name_en}"));
+                    }
+                    return true;
+                default:
+                    for (i = 0; i<mapText.size();i++) {
+                        mapText.get(i).setProperties(textField("{name_en}"));
+                    }
+                    return true;
+                case android.R.id.home:
+                    finish();
+                    return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

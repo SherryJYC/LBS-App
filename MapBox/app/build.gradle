@@ -20,10 +20,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 repositories {
     mavenCentral()
     maven { url 'https://mapbox.bintray.com/mapbox' }
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -34,4 +41,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.23.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places:0.6.0'
+
 }
