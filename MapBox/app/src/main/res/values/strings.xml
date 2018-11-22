@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MapBox</string>
     <string name="access_token" translatable="false">pk.eyJ1Ijoic2hlcnJ5anljIiwiYSI6ImNqb2pteTAzdjA2YmszdXBqanZ2YmNlM2wifQ.2_9XWJxI8fDvh4d_hLlrWA</string>
+    <string name="api_ai_access_token">a015c7ff701d47a1837fceb5220a4921</string>
+
     <string name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
     <string name="language_switch_options_menu_language_french">French</string>
@@ -8,4 +10,19 @@
     <string name="language_switch_options_menu_language_english">English</string>
     <string name="language_switch_options_menu_language_japanese">Japanese</string>
     <string name="language_switch_options_menu_language_german">German</string>
+
+    <string name="clear_chat_button">Clear chat button</string>
+    <string name="ask_a_question">Ask a question</string>
+    <string name="placeholder_response_text">Placeholder response text</string>
+    <string name="placeholder_input_text">Placeholder input text</string>
+    <string name="speech_not_supported">I\'m sorry, speech is not supported.</string>
+    <string name="ask_me">Ask me something.</string>
+    <string name="mia_greeting">Hi, I\'m Mapbox\'s assistant! How can I help you?</string>
+    <string name="mic_button">Microphone button</string>
+    <string name="no_layer_in_map">That layer isn\'t in this map style! Try changing a different layer.</string>
+    <string name="prop_factory_method_not_set_up">This method isn\'t set up yet. Try a different PropertyFactory method!</string>
+    <string name="please_repeat">Sorry, please try repeating the command. Also, the method you said might not exist!</string>
+    <string name="please_repeat_number">Sorry, please try repeating the command. The number you said was unclear.</string>
+    <string name="please_repeat_layer">Sorry, please try repeating the command. The layer you said might not exist in this style.</string>
+    <string name="could_not_find_location">Sorry, could not find that location. Please try again or choose a different place.</string>
 </resources>

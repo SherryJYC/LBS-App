@@ -60,7 +60,28 @@ import android.widget.Button;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textField;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+import ai.api.android.AIConfiguration;
+import ai.api.android.AIDataService;
+import ai.api.model.AIRequest;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
@@ -85,7 +106,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
     private Button button;
-
+    // voice map
+    private static final int SPEECH_INPUT_CODE = 100;
+    private AIDataService aiDataService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MainActivity.this.mapboxMap = mapboxMap;
         initSearchFab();
         addUserLocations();
-
+        // set up voice map
+        ButterKnife.bind(this);
+        setupApiAiConfiguration();
 
 
 // Add the symbol layer icon to map for future use
@@ -133,6 +158,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // Call this method with Context from within an Activity
             NavigationLauncher.startNavigation(MainActivity.this, options);
         });
+    }
+    // button of voice control map
+    @OnClick(R.id.microphone_fab)
+    public void microphoneButtonClick(View view) {
+        beginListening();
+    }
+
+    private void setupApiAiConfiguration() {
+        final AIConfiguration aiConfig = new AIConfiguration(getString(R.string.api_ai_access_token),// AI API KEY
+                AIConfiguration.SupportedLanguages.English,
+                AIConfiguration.RecognitionEngine.System);
+        aiDataService = new AIDataService(this, aiConfig);
+    }
+
+    private void beginListening() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.ask_me));
+        try {
+            startActivityForResult(intent, SPEECH_INPUT_CODE);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    R.string.speech_not_supported,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -275,6 +327,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SPEECH_INPUT_CODE: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    AIRequest request = new AIRequest();
+                    request.setQuery(result.get(0));
+
+                    // Send API.AI the text captured by the device's microphone
+                    new ChatRequest(this, aiDataService, mapboxMap).execute(request);
+
+                }
+                break;
+            }
+        }
+        // no voice control
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
 
 // Retrieve selected location's CarmenFeature

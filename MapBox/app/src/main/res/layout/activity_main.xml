@@ -24,6 +24,22 @@
         mapbox:mapbox_cameraZoom="12" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/microphone_fab"
+        android:layout_width="208dp"
+        android:layout_height="92dp"
+        android:layout_above="@+id/fab_location_search"
+        android:layout_alignEnd="@+id/startButton"
+        android:layout_alignRight="@+id/startButton"
+        android:layout_marginEnd="-5dp"
+        android:layout_marginRight="-5dp"
+        android:layout_marginBottom="7dp"
+        android:src="@drawable/ic_sound_on"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        mapbox:backgroundTint="@color/orange" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_location_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,12 +47,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="end|bottom"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="13dp"
-        android:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_search"
-
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_search_black_24dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         mapbox:backgroundTint="@color/orange" />
 
 
