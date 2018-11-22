@@ -1,6 +1,111 @@
 package com.example.a15104163d.mapbox;
 
 public class Reminder {
-    //TODO: reminder for users to input tasks
-    //TODO: show input locations on map
+    private int mID;
+    private String mTitle;
+    private String mDate;
+    private String mTime;
+    private String mRepeat;
+    private String mRepeatNo;
+    private String mRepeatType;
+    private String mActive;
+    private String mAddress;
+
+
+    public Reminder(int ID, String Title, String Date, String Time, String Repeat, String RepeatNo, String RepeatType, String Active, String Address){
+        mID = ID;
+        mTitle = Title;
+        mDate = Date;
+        mTime = Time;
+        mRepeat = Repeat;
+        mRepeatNo = RepeatNo;
+        mRepeatType = RepeatType;
+        mActive = Active;
+        mAddress = Address;
+    }
+
+    public Reminder(String Title, String Date, String Time, String Repeat, String RepeatNo, String RepeatType, String Active, String Address){
+        mTitle = Title;
+        mDate = Date;
+        mTime = Time;
+        mRepeat = Repeat;
+        mRepeatNo = RepeatNo;
+        mRepeatType = RepeatType;
+        mActive = Active;
+        mAddress = Address;
+    }
+
+    public Reminder(){}
+
+    public String getAddress(){
+        return mAddress;
+    }
+
+    public void setAddress(String address){
+        mAddress = address;
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public void setTime(String time) {
+        mTime = time;
+    }
+
+    public String getRepeatType() {
+        return mRepeatType;
+    }
+
+    public void setRepeatType(String repeatType) {
+        mRepeatType = repeatType;
+    }
+
+    public String getRepeatNo() {
+        return mRepeatNo;
+    }
+
+    public void setRepeatNo(String repeatNo) {
+        mRepeatNo = repeatNo;
+    }
+
+    public String getRepeat() {
+        return mRepeat;
+    }
+
+    public void setRepeat(String repeat) {
+        mRepeat = repeat;
+    }
+
+    public String getActive() {
+        return mActive;
+    }
+
+    public void setActive(String active) {
+        mActive = active;
+    }
 }

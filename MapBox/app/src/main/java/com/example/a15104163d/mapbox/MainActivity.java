@@ -1,7 +1,4 @@
 package com.example.a15104163d.mapbox;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -26,8 +23,6 @@ import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import android.location.Location;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import android.support.annotation.NonNull;
@@ -35,7 +30,6 @@ import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
-import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
@@ -59,29 +53,7 @@ import android.view.View;
 import android.widget.Button;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textField;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
-import android.speech.RecognizerIntent;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
-import ai.api.android.AIConfiguration;
-import ai.api.android.AIDataService;
-import ai.api.model.AIRequest;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
@@ -106,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
     private Button button;
-    // voice map
-    private static final int SPEECH_INPUT_CODE = 100;
-    private AIDataService aiDataService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +100,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         MainActivity.this.mapboxMap = mapboxMap;
         initSearchFab();
+        initReminderFab();
         addUserLocations();
-        // set up voice map
-        ButterKnife.bind(this);
-        setupApiAiConfiguration();
-
 
 // Add the symbol layer icon to map for future use
         Bitmap icon = BitmapFactory.decodeResource(
@@ -159,33 +125,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             NavigationLauncher.startNavigation(MainActivity.this, options);
         });
     }
-    // button of voice control map
-    @OnClick(R.id.microphone_fab)
-    public void microphoneButtonClick(View view) {
-        beginListening();
-    }
-
-    private void setupApiAiConfiguration() {
-        final AIConfiguration aiConfig = new AIConfiguration(getString(R.string.api_ai_access_token),// AI API KEY
-                AIConfiguration.SupportedLanguages.English,
-                AIConfiguration.RecognitionEngine.System);
-        aiDataService = new AIDataService(this, aiConfig);
-    }
-
-    private void beginListening() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.ask_me));
-        try {
-            startActivityForResult(intent, SPEECH_INPUT_CODE);
-        } catch (ActivityNotFoundException a) {
-            Toast.makeText(getApplicationContext(),
-                    R.string.speech_not_supported,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
 
     @Override
     public void onMapClick(@NonNull LatLng point){
@@ -200,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         originPosition = Point.fromLngLat(originCoord.getLongitude(), originCoord.getLatitude());
         getRoute(originPosition, destinationPosition);
         button.setEnabled(true);
-        button.setBackgroundResource(R.color.orange);
+        button.setBackgroundResource(R.color.mapboxBlue);
     }
 
     private void getRoute(Point origin, Point destination) {
@@ -295,6 +234,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+    private void initReminderFab() {
+        FloatingActionButton reminderFab = findViewById(R.id.fab_to_reminder);
+        reminderFab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(view.getContext(), Reminder_Activity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     private void addUserLocations() {
         // TODO: Home is from personal information
@@ -327,22 +277,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case SPEECH_INPUT_CODE: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    AIRequest request = new AIRequest();
-                    request.setQuery(result.get(0));
-
-                    // Send API.AI the text captured by the device's microphone
-                    new ChatRequest(this, aiDataService, mapboxMap).execute(request);
-
-                }
-                break;
-            }
-        }
-        // no voice control
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
 
 // Retrieve selected location's CarmenFeature
@@ -367,56 +301,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition), 4000);
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map_langauge, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        List<Layer> mapText = mapboxMap.getLayers();
-        int i = 0;
-        if (mapText != null) {
-            switch (item.getItemId()) {
-                case R.id.french:
-                    for (i = 0; i<mapText.size();i++){
-                        mapText.get(i).setProperties(textField("{name_fr}"));
-                    }
-                    return true;
-                case R.id.japanese:
-                    for (i = 0; i<mapText.size();i++) {
-                        mapText.get(i).setProperties(textField("{name_ja}"));
-                    }
-                    return true;
-                case R.id.german:
-                    for (i = 0; i<mapText.size();i++) {
-                        mapText.get(i).setProperties(textField("{name_de}"));
-                    }
-                    return true;
-                case R.id.Chinese:
-                    for (i = 0; i<mapText.size();i++) {
-                        mapText.get(i).setProperties(textField("{name_zh}"));
-                    }
-                    return true;
-                case R.id.english:
-                    for (i = 0; i<mapText.size();i++) {
-                        mapText.get(i).setProperties(textField("{name_en}"));
-                    }
-                    return true;
-                default:
-                    for (i = 0; i<mapText.size();i++) {
-                        mapText.get(i).setProperties(textField("{name_en}"));
-                    }
-                    return true;
-                case android.R.id.home:
-                    finish();
-                    return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
