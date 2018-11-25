@@ -15,8 +15,8 @@ Android App for Location-Based Service
 
 ## Checklist :clipboard:
 - [x] App Framwwork
-- [ ] Functions?
-- [ ] Finish Source Code
+- [x] Functions?
+- [x] Finish Source Code
 - [ ] Presentation
 - [ ] Report
 
