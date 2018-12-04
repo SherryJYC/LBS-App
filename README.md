@@ -5,7 +5,7 @@ Android App for Location-Based Service
 ## Project Ongoing ! :fire:
 - Project Name: InSight
 - Objective: provide map and LBS functions for people who are visually impaired
--
+ 
 :waxing_crescent_moon:
 :first_quarter_moon:
 :waxing_gibbous_moon:
