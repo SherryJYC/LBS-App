@@ -18,12 +18,17 @@ Android App for Location-Based Service
 - [x] Reminder
 - [x] Navigation
 
-## Contribution
-JIANG Yuchang
-LI Jingyan
-XUE Jiaying
+## Documentation :file_folder:
++ [Demo Vedio]( EMPTY)
 
-## References:
++ [Report]( EMPTY )
+
+## Contribution :eyes:
+- JIANG Yuchang
+- LI Jingyan
+- XUE Jiaying
+
+## References :black_nib:
 + [Add navigation drawer layout on the map view](https://stackoverflow.com/questions/45604680/android-add-navigation-drawer-to-default-maps-activity)
 
 + [Download icons for buttons](https://material.io/tools/icons/?icon=search&style=baseline)
