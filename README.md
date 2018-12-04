@@ -17,8 +17,8 @@ Android App for Location-Based Service
 - [x] App Framwwork
 - [x] Functions?
 - [x] Finish Source Code
-- [ ] Presentation
-- [ ] Report
+- [x ] Presentation
+- [ x] Report
 
 ## Our link to Google Drive :notebook:
 + [Click Me](https://drive.google.com/drive/folders/1jKESlUAu47_kCLUAsmu85XIGaOQLXYrt)
