@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools">
+    <Button
+        android:id="@+id/startButton"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:padding="5px"
+        android:layout_margin="20px"
+        android:text="Start navigation"
+        android:background="@color/mapboxGrayLight"
+        android:textColor="@color/mapboxWhite"
+        android:enabled="false"/>
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        mapbox:mapbox_cameraTargetLat="38.9098"
+        mapbox:mapbox_cameraTargetLng="-77.0295"
+        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
+        mapbox:mapbox_cameraZoom="12" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/microphone_fab"
+        android:layout_width="208dp"
+        android:layout_height="92dp"
+        android:layout_above="@+id/fab_location_search"
+        android:layout_alignEnd="@+id/startButton"
+        android:layout_alignRight="@+id/startButton"
+        android:layout_marginEnd="-5dp"
+        android:layout_marginRight="-5dp"
+        android:layout_marginBottom="7dp"
+        android:src="@drawable/ic_sound_on"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        mapbox:backgroundTint="@color/orange" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_location_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_search_black_24dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        mapbox:backgroundTint="@color/orange" />
+
+
+</RelativeLayout>
