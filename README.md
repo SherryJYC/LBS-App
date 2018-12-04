@@ -15,10 +15,10 @@ Android App for Location-Based Service
 
 ## Checklist :clipboard:
 - [x] App Framwwork
-- [x] Functions?
+- [x] Functions
 - [x] Finish Source Code
-- [x ] Presentation
-- [ x] Report
+- [x] Presentation
+- [ ] Report
 
 ## Our link to Google Drive :notebook:
 + [Click Me](https://drive.google.com/drive/folders/1jKESlUAu47_kCLUAsmu85XIGaOQLXYrt)
