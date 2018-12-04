@@ -3,7 +3,8 @@ Android App for Location-Based Service
 > LSGI3211A Mobile GIS and LBS Project (2018~2019 Sem 1)  
 
 ## Project Ongoing ! :fire:
-
+- Project Name: InSight
+- Objective: provide map and LBS functions for people who are visually impaired
 :waxing_crescent_moon:
 :first_quarter_moon:
 :waxing_gibbous_moon:
