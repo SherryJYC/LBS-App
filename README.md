@@ -21,9 +21,9 @@ Android App for Location-Based Service
 - [x] Navigation
 
 ## Documentation :file_folder:
-+ [Demo Vedio]( EMPTY)
++ [Demo Vedio]( https://drive.google.com/open?id=13JReVRlk36PnxqXdkTcnmILbp3PUczDd)
 
-+ [Report]( EMPTY )
++ [Report (NOT Available now)]( EMPTY )
 
 ## Contribution :eyes:
 - JIANG Yuchang
